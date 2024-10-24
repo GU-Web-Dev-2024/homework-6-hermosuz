@@ -1,3 +1,10 @@
+<!-- 
+Name: Manny Uzoma
+Class: CPSC 332 Web Development
+Assignment: HW6 - JQuery Stopwatch
+Last Modified: October 23, 2024
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +42,28 @@
                 'border-radius': '5px',
                 'cursor': 'pointer',
                 'margin': '5px'
+            });
+
+            // Additional styling for the stopwatch
+            $('.wrapper').css({
+                'border': '2px solid #333',
+                'padding': '20px',
+                'background-color': '#fafafa',
+                'border-radius': '10px',
+                'max-width': '300px',
+                'margin': 'auto',
+                'text-align': 'center'
+            });
+
+            $('h1, h2').css({
+                'font-family': 'Arial, sans-serif',
+                'color': '#333'
+            });
+
+            $('#timer').css({
+                'font-family': 'Courier, monospace',
+                'font-size': '2.5rem',
+                'color': '#333'
             });
 
             // Start button functionality with opacity animation
