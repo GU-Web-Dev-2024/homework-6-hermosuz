@@ -18,9 +18,57 @@
     <script>
         $(document).ready(function () {
             var $timer = $("#timer");
+            var seconds = "00";
+            var tens = "00";
+            var interval;
 
             // Adding the timer-background class to the timer
             $timer.addClass('timer-background');
+
+            // Start button functionality
+            $("#button-start").on('click', function () {
+                clearInterval(interval);
+                interval = setInterval(startTimer, 10);
+                $timer.css('background-color', 'rgb(51, 165, 50)'); // Green when running
+            });
+
+            // Stop button functionality
+            $("#button-stop").on('click', function () {
+                clearInterval(interval);
+                // Only change to red if the timer is not at 00:00
+                if (seconds !== "00" || tens !== "00") {
+                    $timer.css('background-color', 'rgb(251, 18, 47)'); // Red when paused
+                }
+            });
+
+            // Reset button functionality
+            $("#button-reset").on('click', function () {
+                clearInterval(interval);
+                tens = "00";
+                seconds = "00";
+                $("#tens").html(tens);
+                $("#seconds").html(seconds);
+                $timer.css('background-color', 'grey'); // Reset to default grey color
+            });
+
+            function startTimer() {
+                tens++;
+                if (tens < 9) {
+                    $("#tens").html("0" + tens);
+                }
+                if (tens > 9) {
+                    $("#tens").html(tens);
+                }
+                if (tens > 99) {
+                    seconds++;
+                    $("#seconds").html("0" + seconds);
+                    tens = 0;
+                    $("#tens").html("00");
+                }
+                if (seconds > 9) {
+                    $("#seconds").html(seconds);
+                }
+            }
         });
     </script>
 </head>
@@ -29,7 +77,6 @@
     <div class="wrapper">
         <h1>Stopwatch</h1>
         <h2>Vanilla JavaScript Stopwatch</h2>
-        <!-- Added id="timer" to the paragraph tag -->
         <p id="timer"><span id="seconds">00</span>:<span id="tens">00</span></p>
         <button id="button-start">Start</button>
         <button id="button-stop">Stop</button>
