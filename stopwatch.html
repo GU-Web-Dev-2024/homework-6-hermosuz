@@ -21,6 +21,7 @@
             var seconds = "00";
             var tens = "00";
             var interval;
+            var opacityInterval;
 
             // Adding the timer-background class to the timer
             $timer.addClass('timer-background');
@@ -36,16 +37,23 @@
                 'margin': '5px'
             });
 
-            // Start button functionality
+            // Start button functionality with opacity animation
             $("#button-start").on('click', function () {
                 clearInterval(interval);
+                clearInterval(opacityInterval);
                 interval = setInterval(startTimer, 10);
                 $timer.css('background-color', 'rgb(51, 165, 50)'); // Green when running
+
+                // Opacity animation from 0.8 to 1.0
+                opacityInterval = setInterval(function () {
+                    $timer.animate({ opacity: 0.8 }, 500).animate({ opacity: 1.0 }, 500);
+                }, 1000);
             });
 
             // Stop button functionality
             $("#button-stop").on('click', function () {
                 clearInterval(interval);
+                clearInterval(opacityInterval); // Stop the opacity animation
                 // Only change to red if the timer is not at 00:00
                 if (seconds !== "00" || tens !== "00") {
                     $timer.css('background-color', 'rgb(251, 18, 47)'); // Red when paused
@@ -55,11 +63,15 @@
             // Reset button functionality
             $("#button-reset").on('click', function () {
                 clearInterval(interval);
+                clearInterval(opacityInterval); // Stop the opacity animation
                 tens = "00";
                 seconds = "00";
                 $("#tens").html(tens);
                 $("#seconds").html(seconds);
-                $timer.css('background-color', 'grey'); // Reset to default grey color
+                $timer.css({
+                    'background-color': 'grey', // Reset to default grey color
+                    'opacity': '1' // Reset opacity to 1
+                });
             });
 
             function startTimer() {
@@ -89,9 +101,9 @@
         <h1>Stopwatch</h1>
         <h2>Vanilla JavaScript Stopwatch</h2>
         <p id="timer"><span id="seconds">00</span>:<span id="tens">00</span></p>
-        <button id="button-start" class="btn">Start</button>
-        <button id="button-stop" class="btn">Stop</button>
-        <button id="button-reset" class="btn">Reset</button>
+        <button id="button-start">Start</button>
+        <button id="button-stop">Stop</button>
+        <button id="button-reset">Reset</button>
     </div>
 </body>
 
